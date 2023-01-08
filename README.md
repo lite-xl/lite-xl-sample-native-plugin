@@ -14,7 +14,7 @@ Some of the files that you will find on this repo are:
   build a binary.
 * changelog.md - Read by GitHub Actions to make a release, always a good idea
   to keep this updated.
-* lite_xl_plugin_api.h - Used to optionally import Lua symbols directly from
+* lite_xl_plugin_api.h - Used to import Lua symbols directly from
   the running Lite XL instance. Latest version of this file is found on
   https://github.com/lite-xl/lite-xl/blob/master/resources/lite_xl_plugin_api.h
 
@@ -28,26 +28,31 @@ meson setup build
 meson compile -C build
 ```
 
-By default we configured meson to download Lua and statically link
-to it. To disable this behavior and instead link against system libraries,
-use `--wrap-mode default`
+**(Not Recommended)** If you do not want to use the same Lua linked to Lite XL,
+use `-Duse_lua=enabled`. This will link with the system lua skipping the
+use of `lite_xl_plugin_api.h` header and not importing the required symbols
+directly from Lite XL:
 
 ```sh
-meson setup --wrap-mode default build
+meson setup -Duse_lua=enabled build
 ```
 
-Also you can link to LuaJIT instead by adding `-Djit=true`
+**Notice**: the `subprojects` directory contains a `lua` and `luajit`
+meson wraps. These are used in case you decide to not depend on
+`lite_xl_plugin_api.h` for lua symbols importing, and your system does not
+has the targeted lua runtime installed. In this case it will download the
+runtime, compile it and statically link to it. Also you can force using the
+meson wraps by using the flag `--wrap-mode forcefallback`:
+
+```sh
+meson setup --wrap-mode forcefallback build
+```
+
+Also you can try and link against LuaJIT for testing purposes
+by adding `-Djit=true`:
 
 ```sh
 meson setup -Djit=true build
-```
-
-If you want to use the same Lua that Lite XL is linked against, and skip
-the step of linking to a Lua lib, use `-Duse_lua=disabled`. This will
-use the `lite_xl_plugin_api.h` header to import the required symbols:
-
-```sh
-meson setup -Duse_lua=disabled build
 ```
 
 ## Installation

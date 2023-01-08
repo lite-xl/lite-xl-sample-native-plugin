@@ -5,8 +5,7 @@ project('sample',
     default_options : [
         'c_std=c11',
         'cpp_std=c++11',
-        'buildtype=release',
-        'wrap_mode=forcefallback'
+        'buildtype=release'
     ]
 )
 
@@ -35,6 +34,9 @@ default_fallback_options = [
     'warning_level=0', 'werror=false', 'default_library=static'
 ]
 
+libm = cc.find_library('m', required : false)
+libdl = cc.find_library('dl', required : false)
+
 # Optionally link to system Lua or subproject wrap,
 # if not set it will use the lite_xl_plugin_api.h instead.
 use_lua = not get_option('use_lua').disabled()
@@ -61,7 +63,7 @@ elif use_lua
 endif
 
 # Dependencies list
-plugin_dependencies = []
+plugin_dependencies = [libm, libdl]
 
 if use_lua
     plugin_dependencies += lua_dep
