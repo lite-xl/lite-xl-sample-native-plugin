@@ -82,7 +82,7 @@ endif
 # Plugin Library
 #===============================================================================
 shared_library(
-    'sample',
+    'native',
     ['src/sample.c'],
     name_prefix: '',
     name_suffix: library_suffix,

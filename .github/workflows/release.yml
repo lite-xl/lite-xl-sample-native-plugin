@@ -76,13 +76,13 @@ jobs:
             meson setup --wrap-mode forcefallback -Dprefer_static=true build
           fi
           meson compile -C build
-          mv build/sample.so sample.${{ matrix.arch }}-linux.so
+          mv build/native.so native.${{ matrix.arch }}-linux.so
       - name: Upload
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.release.outputs.version }}
           draft: true
-          files: sample.${{ matrix.arch }}-linux.so
+          files: native.${{ matrix.arch }}-linux.so
 
   build_mingw:
     name: Windows
@@ -111,13 +111,13 @@ jobs:
             --wrap-mode forcefallback -Dprefer_static=true \
             build
           meson compile -C build
-          mv build/sample.dll sample.${{ matrix.arch }}-windows.dll
+          mv build/native.dll native.${{ matrix.arch }}-windows.dll
       - name: Upload
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.release.outputs.version }}
           draft: true
-          files: sample.${{ matrix.arch }}-windows.dll
+          files: native.${{ matrix.arch }}-windows.dll
 
   build_macos:
     name: macOS
@@ -152,10 +152,10 @@ jobs:
             meson setup --wrap-mode forcefallback -Dprefer_static=true build
           fi
           meson compile -C build
-          mv build/sample.so sample.${{ matrix.arch }}-darwin.so
+          mv build/native.so native.${{ matrix.arch }}-darwin.so
       - name: Upload
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.release.outputs.version }}
           draft: true
-          files: sample.${{ matrix.arch }}-darwin.so
+          files: native.${{ matrix.arch }}-darwin.so

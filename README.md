@@ -57,14 +57,15 @@ meson setup -Djit=true build
 
 ## Installation
 
-To install just copy the generated library file to your libraries directory:
+To install just copy the generated native library file to your plugins directory:
 
 ```sh
-cp build/sample.so ~/.config/lite-xl/libraries/
+mkdir -p ~/.config/lite-xl/plugins/sample
+cp build/native.so ~/.config/lite-xl/plugins/sample/
 ```
 
-Then install the Lua plugin that makes use of the native sample plugin:
+Then install the Lua part of the plugin:
 
 ```sh
-cp plugins/greet.lua ~/.config/lite-xl/plugins/
+cp init.lua ~/.config/lite-xl/plugins/sample/
 ```

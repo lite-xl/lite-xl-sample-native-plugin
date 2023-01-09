@@ -82,11 +82,11 @@ jobs:
         run: |
           meson setup --wrap-mode forcefallback -Dprefer_static=true build
           meson compile -C build
-          ntldd -R "build/sample.dll"
-          mv build/sample.dll sample.${PLATFORM}.dll
+          ntldd -R "build/native.dll"
+          mv build/native.dll native.${PLATFORM}.dll
       - name: Upload
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.release.outputs.version }}
           draft: true
-          files: sample.${{ env.PLATFORM }}.dll
+          files: native.${{ env.PLATFORM }}.dll
