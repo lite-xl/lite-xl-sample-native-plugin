@@ -1,5 +1,5 @@
 {
-  "plugins": [
+  "addons": [
     {
       "id": "sample",
       "version": "1.0",
