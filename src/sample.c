@@ -22,7 +22,7 @@ int luaopen_sample(lua_State* L) {
   return 1;
 }
 
-/* Called by lite-xl f_load_native_plugin on `require "libraries.sample"` */
+/* Called by lite-xl f_load_native_plugin on `require "plugins.sample.native"` */
 int luaopen_lite_xl_sample(lua_State *L, void* (*api_require)(char *)) {
 #ifndef USE_LUA
   /* When using Lite XL Lua we need to import all required symbols */
